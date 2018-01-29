@@ -11,6 +11,8 @@ namespace CaliburnMicro
 {
     class AppBootstrapper : BootstrapperBase
     {
+        private readonly SimpleContainer _container = new SimpleContainer();
+
         public AppBootstrapper()
         {
             Initialize();
@@ -19,6 +21,11 @@ namespace CaliburnMicro
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             DisplayRootViewFor<ShellViewModel>();
+        }
+
+        protected override void Configure()
+        {
+            _container.Singleton<IEventAggregator, EventAggregator>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using CaliburnMicro.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace CaliburnMicro.ViewModels
 {
-    class ShellViewModel : Screen
+    class ShellViewModel : Screen, IHandle<EventMessage>
     {
         private string _messageBox;
+        private readonly IEventAggregator _eventAggregator;
+
 
         public string MessageBox
         {
@@ -21,13 +24,27 @@ namespace CaliburnMicro.ViewModels
             }
         }
 
+        public ShellViewModel(IEventAggregator eventAggregator)
+        {
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
+        }
+
+        public ShellViewModel()
+        {
+
+        }
+
         public void OpenWindow()
         {
             WindowManager wm = new WindowManager();
-            SecondWindowViewModel swm = new SecondWindowViewModel();
+            SecondWindowViewModel swm = new SecondWindowViewModel(_eventAggregator);
             wm.ShowWindow(swm);
         }
 
-
+        public void Handle(EventMessage message)
+        {
+            MessageBox = message.Text;
+        }
     }
 }

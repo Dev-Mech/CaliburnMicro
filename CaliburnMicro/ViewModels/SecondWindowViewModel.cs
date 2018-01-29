@@ -5,13 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
+using CaliburnMicro.Models;
+using System.Threading;
 
 namespace CaliburnMicro.ViewModels
 {
     class SecondWindowViewModel: Screen
     {
-        private string _secondTextBox;
 
+        private string _secondTextBox;
+        private readonly IEventAggregator _eventAggregator;
         public string SecondTextBox
         {
             get { return _secondTextBox; }
@@ -21,10 +24,20 @@ namespace CaliburnMicro.ViewModels
                 NotifyOfPropertyChange(() => SecondTextBox);
             }
         }
+        public EventMessage Tosend = new EventMessage();
+
+
+        public SecondWindowViewModel(IEventAggregator eventAggregator)
+        {
+            _eventAggregator = eventAggregator;
+        }
 
         public void SendBack()
         {
-            MessageBox.Show(SecondTextBox,"Testing",MessageBoxButton.OK);
+            Tosend.Text = SecondTextBox;
+            _eventAggregator.PublishOnCurrentThread(Tosend);
+            Thread.Sleep(1000); //I wanted the app to wait a second before closing
+            TryClose();
         }
 
     }
