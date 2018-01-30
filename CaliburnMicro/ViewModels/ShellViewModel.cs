@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CaliburnMicro.ViewModels
 {
-    class ShellViewModel : Screen, IHandle<EventMessage>
+    class ShellViewModel : Screen,IScreen ,IHandle<EventMessage>
     {
         private string _messageBox;
         private readonly IEventAggregator _eventAggregator;
@@ -28,10 +28,6 @@ namespace CaliburnMicro.ViewModels
         {
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
-        }
-
-        public ShellViewModel()
-        {
 
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CaliburnMicro.Models
 {
-    class EventMessage
+    public class EventMessage
     {
         public string Text { get; set; }
     }

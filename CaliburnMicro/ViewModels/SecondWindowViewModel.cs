@@ -31,7 +31,7 @@ namespace CaliburnMicro.ViewModels
 
         public SecondWindowViewModel(IEventAggregator eventAggregator)
         {
-            _eventAggregator = eventAggregator;
+            this._eventAggregator = eventAggregator;
         }
 
         public void SendBack()
@@ -39,8 +39,7 @@ namespace CaliburnMicro.ViewModels
             EventMessage ToSend = new EventMessage();
             ToSend.Text = SecondTextBox;
             _eventAggregator.PublishOnUIThread(ToSend);
-            Thread.Sleep(1000); //I wanted the app to wait a second before closing
-            TryClose();
+            
         }
 
     }

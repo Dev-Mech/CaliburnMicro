@@ -21,6 +21,7 @@
 
         <TextBox x:Name="SecondTextBox" BorderBrush="Black" BorderThickness="2" Grid.Row="1" Grid.Column="1"/>
         <Button x:Name="SendBack" Content="Send" Width="75" Height="30" Grid.Row="2" Grid.Column="1"/>
-
+            
+        
     </Grid>
 </Window>
