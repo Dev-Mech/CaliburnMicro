@@ -15,6 +15,8 @@ namespace CaliburnMicro.ViewModels
 
         private string _secondTextBox;
         private readonly IEventAggregator _eventAggregator;
+        //public EventMessage Tosend = new EventMessage();
+
         public string SecondTextBox
         {
             get { return _secondTextBox; }
@@ -24,7 +26,7 @@ namespace CaliburnMicro.ViewModels
                 NotifyOfPropertyChange(() => SecondTextBox);
             }
         }
-        public EventMessage Tosend = new EventMessage();
+        
 
 
         public SecondWindowViewModel(IEventAggregator eventAggregator)
@@ -34,8 +36,9 @@ namespace CaliburnMicro.ViewModels
 
         public void SendBack()
         {
-            Tosend.Text = SecondTextBox;
-            _eventAggregator.PublishOnCurrentThread(Tosend);
+            EventMessage ToSend = new EventMessage();
+            ToSend.Text = SecondTextBox;
+            _eventAggregator.PublishOnUIThread(ToSend);
             Thread.Sleep(1000); //I wanted the app to wait a second before closing
             TryClose();
         }
